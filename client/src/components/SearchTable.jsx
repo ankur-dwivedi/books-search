@@ -26,7 +26,7 @@ function SearchTable() {
 
   const fetchBooks = async ({ query, startIndex = 0, maxResults = 10 }) => {
     const apiUrl = "http://localhost:4000/api/books";
-    const apiKey = "AIzaSyCEG1iXfk-rzPZn8zS_Myn1KtFtNdsgxJ4";
+    const apiKey = process.env.REACT_APP_API_KEY;
     setIsLoading(true);
     try {
       const params = {
