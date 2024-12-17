@@ -1,0 +1,1 @@
+To run the project just run docker compose up

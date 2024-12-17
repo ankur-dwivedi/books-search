@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  react-app:
+    build:
+      context: ./client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - node-app
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+  node-app:
+    build:
+      context: ./server
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
