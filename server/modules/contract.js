@@ -1,6 +1,6 @@
-const Joi = require('joi');
+import Joi from "joi";
 
-exports.getBooksContract = Joi.object({
+export const getBooksContract = Joi.object({
   key: Joi.string().required(),
   q: Joi.string().optional(),
   startIndex: Joi.number().optional(),

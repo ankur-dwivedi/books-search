@@ -23,6 +23,7 @@ function SearchTable() {
     mostCommonAuthor: null,
     serverResponseTime: null,
   });
+  const [debounceTimeout, setDebounceTimeout] = useState(null);
 
   const fetchBooks = async ({ query, startIndex = 0, maxResults = 10 }) => {
     const apiUrl = "http://localhost:4000/api/books";
@@ -81,6 +82,19 @@ function SearchTable() {
   };
 
   useEffect(() => {
+    if(searchText){
+      if (debounceTimeout) {
+        clearTimeout(debounceTimeout);
+      }
+      const timeoutId = setTimeout(() => {
+        loadBooks(1);
+      }, 500);
+      setDebounceTimeout(timeoutId);
+    }
+
+    },[searchText])
+
+  useEffect(() => {
     if (books?.length) {
       const authorCounts = {};
       let earliestDate = null;
@@ -133,19 +147,8 @@ function SearchTable() {
             <HStack w="100%" alignItems={"flex-start"}>
               {" "}
               <Field invalid={error} errorText={error}>
-                <Input value={searchText} onChange={(e) => setSearchText(e.target.value)} placeholder="Type a keyword to search" />
+              <Input value={searchText} onChange={(e) => setSearchText(e.target.value)} placeholder="Type a keyword to search" />
               </Field>
-              <Button
-                variant={"outline"}
-                loading={isLoading}
-                loadingText="Loading..."
-                disabled={!searchText || isLoading}
-                onClick={() => {
-                  loadBooks(1);
-                }}
-              >
-                {"Search"}
-              </Button>
               <MenuRoot onSelect={(e) => loadBooks(1, e.value)}>
                 <MenuTrigger asChild>
                   <Button variant="outline" size="md">

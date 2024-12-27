@@ -1,4 +1,4 @@
-exports.validate = (type, schema) => {
+export const validate = (type, schema) => {
     return async (req, res, next) => {
       try {
         const submitData = req[type];

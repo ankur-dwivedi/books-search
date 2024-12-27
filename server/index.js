@@ -1,6 +1,6 @@
-const express = require("express");
-const router = require('./routes');
-const cors = require('cors');
+import express from "express";
+import router from "./routes/index.js";
+import cors from "cors";
 
 const app = express();
 app.use(cors());
@@ -10,4 +10,4 @@ app.listen(4000, () => {
   console.log("app listning on port 4000");
 });
 
-module.exports = app;
+export default app;
